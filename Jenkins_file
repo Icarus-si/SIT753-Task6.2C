@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Build: Maven - compile and package the application'
+            }
+        }
+
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Unit Tests: JUnit'
+                echo 'Integration Tests: JUnit'
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Code Analysis: SonarQube - analyse code quality'
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Security Scan: Snyk - scan for known vulnerabilities'
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploy to Staging: AWS EC2 - deploy the application to staging'
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Integration Tests on Staging: Selenium - test the application in staging'
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploy to Production: AWS EC2 - deploy the application to production'
+            }
+        }
+    }
+}
